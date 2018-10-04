@@ -33,7 +33,7 @@ class GHAapp < Sinatra::Application
 
 # Get the app identifier—an integer—from your app page after you create your app. This isn't actually a secret,
 # but it is something easier to configure at runtime
-  APP_IDENTIFIER = ENV['GITHUB_APP_IDENTIFIER']
+  APP_IDENTIFIER = ENV['GITHUB_APP_IDENTIFIER'].to_i
 
 
 ########## Configure Sinatra
@@ -201,11 +201,11 @@ class GHAapp < Sinatra::Application
       #     # we need to take the local relative path, and extract the repo-relative path
       #     filename = warning.filename
       #     annotation = {
-      #         filename: filename,
+      #         path: filename,
       #         blob_href: "#{@payload['repository']['blobs_url']}/#{filename}".sub('{/sha}', "/#{sha}"),
       #         start_line: warning.line_number,
       #         end_line: warning.line_number,
-      #         warning_level: :warning, #or :error
+      #         annotation_level: :warning, #or :failure
       #         message: warning.message
       #     }
       #     output[:annotations].push annotation
